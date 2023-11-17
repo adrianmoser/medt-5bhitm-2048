@@ -48,7 +48,7 @@ class MainActivity : ComponentActivity() {
 
                                 },
                                 onDragEnd = {
-                                    Log.d("Swap Direction", "$direction")
+                                    viewModel.value.handleSwipe(direction)
                                 })
                         }
 
@@ -57,7 +57,7 @@ class MainActivity : ComponentActivity() {
                     Column(
                         modifier = Modifier.padding(16.dp)
                     ) {
-                        viewModel.value.gameBoard.forEach { listOfCells ->
+                        viewModel.value.gameBoard.value.forEach { listOfCells ->
                             Row {
                                 listOfCells.forEach { cell ->
                                     GameCell(number = cell)
