@@ -31,6 +31,7 @@ class MainActivity : ComponentActivity() {
                 ){
                     GameCell(number = 2)
                     GameCell(number = 3)
+
                 }
             }
         }
