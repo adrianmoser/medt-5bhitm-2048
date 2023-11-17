@@ -1,13 +1,12 @@
 package at.htl.leonding.game2048.model
 
-import androidx.compose.runtime.mutableStateListOf
 
 class Model {
     private var gameCells = mutableListOf(
-        mutableStateListOf(8, 0, 0, 0),
-        mutableStateListOf(0, 2048, 0, 0),
-        mutableStateListOf(0, 0, 64, 0),
-        mutableStateListOf(0, 16, 0, 0)
+        mutableListOf(8, 8, 0, 0),
+        mutableListOf(0, 2048, 0, 0),
+        mutableListOf(0, 64, 64, 0),
+        mutableListOf(16, 16, 0, 0)
     )
 
     private val sizeOfTheRow = 4;
@@ -16,36 +15,37 @@ class Model {
         get() = this.gameCells.toList()
 
     fun reverse() {
-        gameCells.reverse()
+        gameCells.forEach { it.reverse() }
     }
 
     fun shiftLeft() {
-        var test = gameCells.map { cellRow ->
-            {
-                val nonZeroValues = cellRow.filter { it != 0 }.toMutableList()
-                for (i in 0 until nonZeroValues.size - 1) {
-                    if (nonZeroValues[i] == nonZeroValues[i + 1]) {
-                        // Kombiniere Kacheln mit gleichem Wert
-                        nonZeroValues[i] *= 2
-                        nonZeroValues.removeAt(i + 1)
-                    }
+        for (i in 0 until gameCells.size) {
+            val cellRow = gameCells[i]
+            val nonZeroValues = cellRow.filter { it != 0 }.toMutableList()
+            for (i in 0 until nonZeroValues.size - 1) {
+                if (nonZeroValues[i] == nonZeroValues[i + 1]) {
+                    // Kombiniere Kacheln mit gleichem Wert
+                    nonZeroValues[i] *= 2
+                    nonZeroValues.removeAt(i + 1)
                 }
-
-                // Fülle den Rest der Zeile mit Nullen auf
-                nonZeroValues += List(sizeOfTheRow - nonZeroValues.size) { 0 }
-
-
             }
+
+            nonZeroValues += List(sizeOfTheRow - nonZeroValues.size) { 0 }
+            gameCells[i] = nonZeroValues
         }
-        tes
+
+
     }
 
     fun moveRight(): List<List<Int>> {
+        reverse()
+        shiftLeft()
         reverse()
         return gameCells
     }
 
     fun moveLeft(): List<List<Int>> {
+        shiftLeft()
         return gameCells
     }
 

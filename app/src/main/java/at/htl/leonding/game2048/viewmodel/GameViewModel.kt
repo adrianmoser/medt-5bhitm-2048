@@ -23,7 +23,9 @@ class GameViewModel : ViewModel() {
             Direction.LEFT -> model.moveLeft()
             Direction.DOWN -> model.moveDown()
             Direction.UP -> model.moveUp()
-            else -> {}
+            else -> {
+                model.gameBoard
+            }
         }
 
     }
