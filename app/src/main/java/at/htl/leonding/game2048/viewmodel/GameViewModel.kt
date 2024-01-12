@@ -27,6 +27,6 @@ class GameViewModel : ViewModel() {
                 model.gameBoard
             }
         }
-
+        model.replaceRandomFieldWithTwo()
     }
 }
