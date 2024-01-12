@@ -19,11 +19,17 @@ class Model {
     val gameState: GameState
         get() = this._gameState
 
-    fun reverse() {
+    var name = ""
+
+    fun startGame() {
+        this._gameState = GameState.RUNNING
+    }
+
+    private fun reverse() {
         gameCells.forEach { it.reverse() }
     }
 
-    fun shiftLeft() {
+    private fun shiftLeft() {
         for (i in 0 until gameCells.size) {
             val cellRow = gameCells[i]
             val nonZeroValues = cellRow.filter { it != 0 }.toMutableList()
@@ -40,7 +46,7 @@ class Model {
         }
     }
 
-    fun rotateMatrix90Degrees() {
+    private fun rotateMatrix90Degrees() {
         val numRows = gameCells.size
         val numCols = gameCells[0].size
 
@@ -55,7 +61,7 @@ class Model {
         gameCells = rotatedMatrix;
     }
 
-    fun replaceRandomFieldWithTwo() {
+    private fun replaceRandomFieldWithTwo() {
         // Find all positions with zero value
         val zeroPositions = mutableListOf<Pair<Int, Int>>()
 
@@ -77,7 +83,7 @@ class Model {
         }
     }
 
-    fun isGameOver(): Boolean {
+    private fun isGameOver(): Boolean {
         val numRows = gameCells.size
         val numCols = gameCells[0].size
 
@@ -137,19 +143,19 @@ class Model {
         replaceRandomFieldWithTwo()
     }
 
-    fun moveRight(): List<List<Int>> {
+    private fun moveRight(): List<List<Int>> {
         reverse()
         shiftLeft()
         reverse()
         return gameCells
     }
 
-    fun moveLeft(): List<List<Int>> {
+    private fun moveLeft(): List<List<Int>> {
         shiftLeft()
         return gameCells
     }
 
-    fun moveDown(): List<List<Int>> {
+    private fun moveDown(): List<List<Int>> {
         rotateMatrix90Degrees()
         shiftLeft()
         rotateMatrix90Degrees()
@@ -158,7 +164,7 @@ class Model {
         return gameCells
     }
 
-    fun moveUp(): List<List<Int>> {
+    private fun moveUp(): List<List<Int>> {
         rotateMatrix90Degrees()
         rotateMatrix90Degrees()
         rotateMatrix90Degrees()
