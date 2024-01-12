@@ -14,19 +14,13 @@ class GameViewModel : ViewModel() {
 */
     private var _gameBoard = mutableStateOf(model.gameBoard)
     val gameBoard = _gameBoard
+    private var _gameState = mutableStateOf(model.gameState)
+    val gameState = _gameState
     fun handleSwipe(direction: Direction) {
         Log.d("Direction log", "$direction")
         _gameBoard.value = mutableListOf();
 
-        _gameBoard.value = when (direction) {
-            Direction.RIGHT -> model.moveRight()
-            Direction.LEFT -> model.moveLeft()
-            Direction.DOWN -> model.moveDown()
-            Direction.UP -> model.moveUp()
-            else -> {
-                model.gameBoard
-            }
-        }
-        model.replaceRandomFieldWithTwo()
+        model.move(direction)
+        _gameBoard.value = model.gameBoard;
     }
 }

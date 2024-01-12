@@ -5,18 +5,19 @@ import kotlin.random.Random
 
 class Model {
     private var gameCells = mutableListOf(
-        mutableListOf(8, 8, 0, 0),
-        mutableListOf(0, 2048, 0, 0),
-        mutableListOf(0, 64, 64, 0),
-        mutableListOf(16, 16, 0, 0)
+        mutableListOf(8, 16, 2, 4),
+        mutableListOf(2, 2048, 4, 2),
+        mutableListOf(128, 64, 16, 128),
+        mutableListOf(16, 32, 512, 0)
     )
+    val gameBoard: List<List<Int>>
+        get() = this.gameCells.toList()
 
     private val sizeOfTheRow = 4;
 
-    private val isGameOver = false
-
-    val gameBoard: List<List<Int>>
-        get() = this.gameCells.toList()
+    private var _gameState = GameState.START
+    val gameState: GameState
+        get() = this._gameState
 
     fun reverse() {
         gameCells.forEach { it.reverse() }
@@ -76,7 +77,66 @@ class Model {
         }
     }
 
+    fun isGameOver(): Boolean {
+        val numRows = gameCells.size
+        val numCols = gameCells[0].size
+
+        // Check for zeros in the matrix
+        if (gameCells.any { row -> row.any { it == 0 } }) {
+            return false
+        }
+
+        // Check for neighboring cells with the same values
+        for (i in 0 until numRows) {
+            for (j in 0 until numCols) {
+                val currentValue = gameCells[i][j]
+
+                // Check left neighbor
+                if (j > 0 && gameCells[i][j - 1] == currentValue) {
+                    return false
+                }
+
+                // Check right neighbor
+                if (j < numCols - 1 && gameCells[i][j + 1] == currentValue) {
+                    return false
+                }
+
+                // Check above neighbor
+                if (i > 0 && gameCells[i - 1][j] == currentValue) {
+                    return false
+                }
+
+                // Check below neighbor
+                if (i < numRows - 1 && gameCells[i + 1][j] == currentValue) {
+                    return false
+                }
+            }
+        }
+
+        // If no zeros and no neighbors with the same value are found, the board is valid
+        return true
+    }
+
     //region move
+    fun move(direction: Direction) {
+        if(isGameOver()) {
+            _gameState = GameState.LOST;
+            return;
+        }
+
+        when (direction) {
+            Direction.RIGHT -> moveRight()
+            Direction.LEFT -> moveLeft()
+            Direction.DOWN -> moveDown()
+            Direction.UP -> moveUp()
+            else -> {
+                gameBoard
+            }
+        }
+
+        replaceRandomFieldWithTwo()
+    }
+
     fun moveRight(): List<List<Int>> {
         reverse()
         shiftLeft()
