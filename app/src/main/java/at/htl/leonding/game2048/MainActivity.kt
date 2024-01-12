@@ -5,14 +5,10 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import at.htl.leonding.game2048.model.Direction
 import at.htl.leonding.game2048.model.GameState
 import at.htl.leonding.game2048.ui.GameBoard
+import at.htl.leonding.game2048.ui.GameWon
 import at.htl.leonding.game2048.ui.StartScreen
 import at.htl.leonding.game2048.ui.theme.Game2048Theme
 import at.htl.leonding.game2048.viewmodel.GameViewModel
@@ -28,7 +24,7 @@ class MainActivity : ComponentActivity() {
                 when(viewModel.gameState.value) {
                     GameState.LOST -> Text(text = "GAME LOST!")
                     GameState.RUNNING -> GameBoard(viewModel = viewModel)
-                    GameState.WON -> TODO()
+                    GameState.WON -> GameWon(viewModel = viewModel)
                     GameState.START -> StartScreen(viewModel = viewModel)
                 }
                 // A surface container using the 'background' color from the theme
@@ -46,15 +42,12 @@ fun handleDragEvent(x: Float, y: Float): Direction {
             x > offset -> Direction.RIGHT
             x < offset -> Direction.LEFT
             else -> Direction.NO_DIRECTION
-
         }
     } else {
         return when {
             y > 0 -> Direction.DOWN
             y < 0 -> Direction.UP
             else -> Direction.NO_DIRECTION
-
-
         }
     }
 }

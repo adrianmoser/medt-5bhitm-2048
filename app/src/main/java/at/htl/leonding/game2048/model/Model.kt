@@ -123,10 +123,19 @@ class Model {
         return true
     }
 
+    private fun hasWon(): Boolean {
+        return gameCells.flatten().contains(2048)
+    }
+
     //region move
     fun move(direction: Direction) {
         if(isGameOver()) {
             _gameState = GameState.LOST;
+            return;
+        }
+
+        if(hasWon()) {
+            _gameState = GameState.WON
             return;
         }
 
