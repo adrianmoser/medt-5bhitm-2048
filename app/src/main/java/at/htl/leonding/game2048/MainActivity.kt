@@ -8,6 +8,7 @@ import androidx.compose.material3.Text
 import at.htl.leonding.game2048.model.Direction
 import at.htl.leonding.game2048.model.GameState
 import at.htl.leonding.game2048.ui.GameBoard
+import at.htl.leonding.game2048.ui.GameLost
 import at.htl.leonding.game2048.ui.GameWon
 import at.htl.leonding.game2048.ui.StartScreen
 import at.htl.leonding.game2048.ui.theme.Game2048Theme
@@ -22,7 +23,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             Game2048Theme {
                 when(viewModel.gameState.value) {
-                    GameState.LOST -> Text(text = "GAME LOST!")
+                    GameState.LOST -> GameLost(viewModel = viewModel)
                     GameState.RUNNING -> GameBoard(viewModel = viewModel)
                     GameState.WON -> GameWon(viewModel = viewModel)
                     GameState.START -> StartScreen(viewModel = viewModel)

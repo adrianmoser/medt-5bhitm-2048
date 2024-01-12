@@ -10,17 +10,12 @@ import androidx.compose.ui.unit.dp
 import at.htl.leonding.game2048.viewmodel.GameViewModel
 
 @Composable
-fun GameWon(viewModel: GameViewModel) {
+fun GameLost(viewModel: GameViewModel) {
     Column {
 
         Text(
-            text = "YOU HAVE WON THE GAME!",
+            text = "YOU HAVE LOST THE GAME!",
             modifier = Modifier.padding(16.dp),
-            textAlign = TextAlign.Center
-        )
-        Text(
-            text = "Username: " + viewModel.name.value,
-            modifier = Modifier.padding(10.dp),
             textAlign = TextAlign.Center
         )
     }
