@@ -6,7 +6,7 @@ import kotlin.random.Random
 class Model {
     private var gameCells = mutableListOf(
         mutableListOf(0, 0, 0, 0),
-        mutableListOf(0, 0, 0, 0),
+        mutableListOf(0, 0, 2048, 0),
         mutableListOf(0, 0, 0, 0),
         mutableListOf(0, 0, 0, 0),
     )
