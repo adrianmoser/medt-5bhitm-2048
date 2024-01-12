@@ -76,6 +76,7 @@ class Model {
         }
     }
 
+    //region move
     fun moveRight(): List<List<Int>> {
         reverse()
         shiftLeft()
@@ -105,5 +106,6 @@ class Model {
         rotateMatrix90Degrees()
         return gameCells
     }
+    //endregion
 
 }
