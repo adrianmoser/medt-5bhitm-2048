@@ -5,10 +5,10 @@ import kotlin.random.Random
 
 class Model {
     private var gameCells = mutableListOf(
-        mutableListOf(8, 16, 2, 4),
-        mutableListOf(2, 2048, 4, 2),
-        mutableListOf(128, 64, 16, 128),
-        mutableListOf(16, 32, 512, 0)
+        mutableListOf(0, 0, 0, 0),
+        mutableListOf(0, 0, 0, 0),
+        mutableListOf(0, 0, 0, 0),
+        mutableListOf(0, 0, 0, 0),
     )
     val gameBoard: List<List<Int>>
         get() = this.gameCells.toList()
@@ -20,6 +20,12 @@ class Model {
         get() = this._gameState
 
     var name = ""
+
+    init {
+        replaceRandomFieldWithTwo()
+        replaceRandomFieldWithTwo()
+        replaceRandomFieldWithTwo()
+    }
 
     fun startGame() {
         this._gameState = GameState.RUNNING
