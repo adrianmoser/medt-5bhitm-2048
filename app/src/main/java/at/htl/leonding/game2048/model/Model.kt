@@ -39,11 +39,15 @@ class Model {
         for (i in 0 until gameCells.size) {
             val cellRow = gameCells[i]
             val nonZeroValues = cellRow.filter { it != 0 }.toMutableList()
-            for (i in 0 until nonZeroValues.size - 1) {
-                if (nonZeroValues[i] == nonZeroValues[i + 1]) {
-                    // Kombiniere Kacheln mit gleichem Wert
-                    nonZeroValues[i] *= 2
-                    nonZeroValues.removeAt(i + 1)
+
+            var j = 0
+            while (j < nonZeroValues.size - 1) {
+                if (nonZeroValues[j] == nonZeroValues[j + 1]) {
+                    // Combine tiles with the same value
+                    nonZeroValues[j] *= 2
+                    nonZeroValues.removeAt(j + 1)
+                } else {
+                    j++
                 }
             }
 
