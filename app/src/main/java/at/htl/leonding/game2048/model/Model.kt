@@ -54,6 +54,28 @@ class Model {
         gameCells = rotatedMatrix;
     }
 
+    fun replaceRandomFieldWithTwo() {
+        // Find all positions with zero value
+        val zeroPositions = mutableListOf<Pair<Int, Int>>()
+
+        for (i in gameCells.indices) {
+            for (j in gameCells[i].indices) {
+                if (gameCells[i][j] == 0) {
+                    zeroPositions.add(Pair(i, j))
+                }
+            }
+        }
+
+        // Choose a random position with zero value
+        if (zeroPositions.isNotEmpty()) {
+            val randomPosition = zeroPositions[Random.nextInt(zeroPositions.size)]
+            val (row, col) = randomPosition
+
+            // Replace the chosen position with 2
+            gameCells[row][col] = 2
+        }
+    }
+
     fun moveRight(): List<List<Int>> {
         reverse()
         shiftLeft()
