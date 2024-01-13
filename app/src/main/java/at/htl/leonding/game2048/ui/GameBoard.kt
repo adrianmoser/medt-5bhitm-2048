@@ -55,6 +55,8 @@ fun GameBoard(viewModel: GameViewModel) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
+                modifier = Modifier
+                    .padding(top = 30.dp),
                 text = "Score: " + viewModel.score.value,
                 color = Color.White,
                 textAlign = TextAlign.Center,
