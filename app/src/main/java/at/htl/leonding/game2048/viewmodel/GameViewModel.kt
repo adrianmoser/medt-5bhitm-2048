@@ -28,4 +28,10 @@ class GameViewModel : ViewModel() {
         model.startGame()
         this.gameState.value = model.gameState
     }
+
+    fun playAgain() {
+        model.playAgain()
+        this._gameBoard.value = model.gameBoard
+        this.gameState.value = model.gameState
+    }
 }

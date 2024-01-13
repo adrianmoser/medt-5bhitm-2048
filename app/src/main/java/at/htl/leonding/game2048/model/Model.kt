@@ -6,7 +6,7 @@ import kotlin.random.Random
 class Model {
     private var gameCells = mutableListOf(
         mutableListOf(0, 0, 0, 0),
-        mutableListOf(0, 0, 2048, 0),
+        mutableListOf(0, 0, 0, 0),
         mutableListOf(0, 0, 0, 0),
         mutableListOf(0, 0, 0, 0),
     )
@@ -29,6 +29,21 @@ class Model {
 
     fun startGame() {
         this._gameState = GameState.RUNNING
+    }
+
+    fun playAgain() {
+        this.gameCells = mutableListOf(
+            mutableListOf(0, 0, 0, 0),
+            mutableListOf(0, 0, 0, 0),
+            mutableListOf(0, 0, 0, 0),
+            mutableListOf(0, 0, 0, 0),
+        )
+
+        replaceRandomFieldWithTwo()
+        replaceRandomFieldWithTwo()
+        replaceRandomFieldWithTwo()
+
+        _gameState = GameState.RUNNING
     }
 
     private fun reverse() {
