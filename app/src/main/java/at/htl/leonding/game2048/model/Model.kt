@@ -22,9 +22,9 @@ class Model {
     var name = ""
 
     init {
-        replaceRandomFieldWithTwo()
-        replaceRandomFieldWithTwo()
-        replaceRandomFieldWithTwo()
+        replaceRandomField()
+        replaceRandomField()
+        replaceRandomField()
     }
 
     fun startGame() {
@@ -39,9 +39,9 @@ class Model {
             mutableListOf(0, 0, 0, 0),
         )
 
-        replaceRandomFieldWithTwo()
-        replaceRandomFieldWithTwo()
-        replaceRandomFieldWithTwo()
+        replaceRandomField()
+        replaceRandomField()
+        replaceRandomField()
 
         _gameState = GameState.RUNNING
     }
@@ -86,7 +86,7 @@ class Model {
         gameCells = rotatedMatrix;
     }
 
-    private fun replaceRandomFieldWithTwo() {
+    private fun replaceRandomField() {
         // Find all positions with zero value
         val zeroPositions = mutableListOf<Pair<Int, Int>>()
 
@@ -103,8 +103,8 @@ class Model {
             val randomPosition = zeroPositions[Random.nextInt(zeroPositions.size)]
             val (row, col) = randomPosition
 
-            // Replace the chosen position with 2
-            gameCells[row][col] = 2
+            // Replace the chosen position with 2, or a 10% chance of getting a  4
+            gameCells[row][col] = if((0..10).random() == 10) 4 else 2;
         }
     }
 
@@ -174,7 +174,7 @@ class Model {
             }
         }
 
-        replaceRandomFieldWithTwo()
+        replaceRandomField()
     }
 
     private fun moveRight(): List<List<Int>> {
@@ -207,5 +207,4 @@ class Model {
         return gameCells
     }
     //endregion
-
 }
