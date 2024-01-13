@@ -39,11 +39,13 @@ fun GameCell(number: Int) {
             .background(setColorOfCell(number))
 
     ) {
-        Text(
-            text = number.toString(),
-            fontSize = setFontSize(number),
-            color = setFontColor(number)
-        )
+        if(number != 0) {
+            Text(
+                text = number.toString(),
+                fontSize = setFontSize(number),
+                color = setFontColor(number)
+            )
+        }
     }
 }
 
