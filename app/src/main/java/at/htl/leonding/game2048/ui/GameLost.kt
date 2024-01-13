@@ -42,6 +42,12 @@ fun GameLost(viewModel: GameViewModel) {
             textAlign = TextAlign.Center,
             color = Color.White
         )
+        Text(
+            text = "Score: " + viewModel.score.value,
+            modifier = Modifier.padding(10.dp),
+            textAlign = TextAlign.Center,
+            color = Color.White
+        )
         Button(
             onClick = { viewModel.playAgain() },
             colors = ButtonDefaults.buttonColors(

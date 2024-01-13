@@ -21,6 +21,10 @@ class Model {
 
     var name = ""
 
+    private var _score = 0
+    val score: Int
+        get() = this._score
+
     init {
         replaceRandomField()
         replaceRandomField()
@@ -44,6 +48,7 @@ class Model {
         replaceRandomField()
 
         _gameState = GameState.RUNNING
+        _score = 0;
     }
 
     private fun reverse() {
@@ -60,6 +65,7 @@ class Model {
                 if (nonZeroValues[j] == nonZeroValues[j + 1]) {
                     // Combine tiles with the same value
                     nonZeroValues[j] *= 2
+                    _score += nonZeroValues[j];
                     nonZeroValues.removeAt(j + 1)
                 } else {
                     j++

@@ -14,6 +14,7 @@ class GameViewModel : ViewModel() {
     private var _gameState = mutableStateOf(model.gameState)
     val gameState = _gameState
     val name = mutableStateOf(model.name)
+    val score = mutableStateOf(model.score)
 
     fun handleSwipe(direction: Direction) {
         Log.d("Direction log", "$direction")
@@ -22,10 +23,12 @@ class GameViewModel : ViewModel() {
         model.move(direction)
         _gameBoard.value = model.gameBoard;
         this.gameState.value = model.gameState
+        this.score.value = model.score
     }
 
     fun startGame() {
         model.startGame()
+        this.score.value = model.score
         this.gameState.value = model.gameState
     }
 
@@ -33,5 +36,6 @@ class GameViewModel : ViewModel() {
         model.playAgain()
         this._gameBoard.value = model.gameBoard
         this.gameState.value = model.gameState
+        this.score.value = model.score
     }
 }
