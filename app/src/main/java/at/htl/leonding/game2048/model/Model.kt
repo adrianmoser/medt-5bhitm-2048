@@ -33,6 +33,7 @@ class Model {
         replaceRandomField()
     }
 
+    //region GameState Operations
     fun startGame() {
         this._gameState = GameState.RUNNING
     }
@@ -52,7 +53,55 @@ class Model {
         _gameState = GameState.RUNNING
         _score = 0;
     }
+    //endregion
 
+    //region Check for Gamestate operations
+    private fun isGameOver(): Boolean {
+        val numRows = gameCells.size
+        val numCols = gameCells[0].size
+
+        // Check for zeros in the matrix
+        if (gameCells.any { row -> row.any { it == 0 } }) {
+            return false
+        }
+
+        // Check for neighboring cells with the same values
+        for (i in 0 until numRows) {
+            for (j in 0 until numCols) {
+                val currentValue = gameCells[i][j]
+
+                // Check left neighbor
+                if (j > 0 && gameCells[i][j - 1] == currentValue) {
+                    return false
+                }
+
+                // Check right neighbor
+                if (j < numCols - 1 && gameCells[i][j + 1] == currentValue) {
+                    return false
+                }
+
+                // Check above neighbor
+                if (i > 0 && gameCells[i - 1][j] == currentValue) {
+                    return false
+                }
+
+                // Check below neighbor
+                if (i < numRows - 1 && gameCells[i + 1][j] == currentValue) {
+                    return false
+                }
+            }
+        }
+
+        // If no zeros and no neighbors with the same value are found, the board is valid
+        return true
+    }
+
+    private fun hasWon(): Boolean {
+        return gameCells.flatten().contains(2048)
+    }
+    //endregion
+
+    //region GameBoardModifications
     private fun reverse() {
         gameCells.forEach { it.reverse() }
     }
@@ -115,50 +164,7 @@ class Model {
             gameCells[row][col] = if((0..10).random() == 10) 4 else 2;
         }
     }
-
-    private fun isGameOver(): Boolean {
-        val numRows = gameCells.size
-        val numCols = gameCells[0].size
-
-        // Check for zeros in the matrix
-        if (gameCells.any { row -> row.any { it == 0 } }) {
-            return false
-        }
-
-        // Check for neighboring cells with the same values
-        for (i in 0 until numRows) {
-            for (j in 0 until numCols) {
-                val currentValue = gameCells[i][j]
-
-                // Check left neighbor
-                if (j > 0 && gameCells[i][j - 1] == currentValue) {
-                    return false
-                }
-
-                // Check right neighbor
-                if (j < numCols - 1 && gameCells[i][j + 1] == currentValue) {
-                    return false
-                }
-
-                // Check above neighbor
-                if (i > 0 && gameCells[i - 1][j] == currentValue) {
-                    return false
-                }
-
-                // Check below neighbor
-                if (i < numRows - 1 && gameCells[i + 1][j] == currentValue) {
-                    return false
-                }
-            }
-        }
-
-        // If no zeros and no neighbors with the same value are found, the board is valid
-        return true
-    }
-
-    private fun hasWon(): Boolean {
-        return gameCells.flatten().contains(2048)
-    }
+    //endregion
 
     //region move
     fun move(direction: Direction) {
@@ -173,16 +179,6 @@ class Model {
             else -> {
                 gameBoard
             }
-        }
-
-        if(isGameOver()) {
-            _gameState = GameState.LOST;
-            return;
-        }
-
-        if(hasWon()) {
-            _gameState = GameState.WON
-            return;
         }
 
         // Check if the game board has changed
