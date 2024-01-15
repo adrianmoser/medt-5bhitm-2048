@@ -1,4 +1,9 @@
+/.idea/
+/.idea/*
+/.idea
+.idea
 .idea/
+.idea/*
 *.iml
 .gradle
 /local.properties
