@@ -28,3 +28,13 @@ val Game256Background = Color(0xffedcc62)
 val Game512Background = Color(0xffedc950)
 val Game1024Background = Color(0xffedc53f)
 val Game2048Background = Color(0xffedc22e)
+
+val GameLostBackground = Color(0xffc90000)
+val GameLostText = Color.White
+val GameLostButtonBackground = Color.White
+val GameLostButtonText = Color.Black
+
+val GameWonBackground = Color(0xFFB69E41)
+val GameWonText = Color.White
+val GameWonButtonBackground = Color.White
+val GameWonButtonText = Color.Black

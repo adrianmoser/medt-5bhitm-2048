@@ -11,11 +11,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import at.htl.leonding.game2048.ui.theme.GameLostBackground
+import at.htl.leonding.game2048.ui.theme.GameLostButtonBackground
+import at.htl.leonding.game2048.ui.theme.GameLostButtonText
+import at.htl.leonding.game2048.ui.theme.GameLostText
 import at.htl.leonding.game2048.viewmodel.GameViewModel
 
 @Composable
@@ -24,7 +27,7 @@ fun GameLost(viewModel: GameViewModel) {
         modifier = Modifier
             .fillMaxSize()
             .background(
-                color = Color(0xffc90000)
+                color = GameLostBackground
             ),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
@@ -33,30 +36,30 @@ fun GameLost(viewModel: GameViewModel) {
             text = "YOU HAVE LOST THE GAME!",
             modifier = Modifier.padding(16.dp),
             textAlign = TextAlign.Center,
-            color = Color.White,
+            color = GameLostText,
             fontSize = 25.sp
         )
         Text(
             text = "Username: " + viewModel.name.value,
             modifier = Modifier.padding(10.dp),
             textAlign = TextAlign.Center,
-            color = Color.White
+            color = GameLostText
         )
         Text(
             text = "Score: " + viewModel.score.value,
             modifier = Modifier.padding(10.dp),
             textAlign = TextAlign.Center,
-            color = Color.White
+            color = GameLostText
         )
         Button(
             onClick = { viewModel.playAgain() },
             colors = ButtonDefaults.buttonColors(
-                containerColor = Color.White
+                containerColor = GameLostButtonBackground
             )
         ) {
             Text(
                 text = "Retry",
-                color = Color.Black
+                color = GameLostButtonText
             )
         }
     }
