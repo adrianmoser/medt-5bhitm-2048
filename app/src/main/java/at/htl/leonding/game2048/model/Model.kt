@@ -160,16 +160,6 @@ class Model {
 
     //region move
     fun move(direction: Direction) {
-        if(isGameOver()) {
-            _gameState = GameState.LOST;
-            return;
-        }
-
-        if(hasWon()) {
-            _gameState = GameState.WON
-            return;
-        }
-
         when (direction) {
             Direction.RIGHT -> moveRight()
             Direction.LEFT -> moveLeft()
@@ -178,6 +168,16 @@ class Model {
             else -> {
                 gameBoard
             }
+        }
+
+        if(isGameOver()) {
+            _gameState = GameState.LOST;
+            return;
+        }
+
+        if(hasWon()) {
+            _gameState = GameState.WON
+            return;
         }
 
         replaceRandomField()

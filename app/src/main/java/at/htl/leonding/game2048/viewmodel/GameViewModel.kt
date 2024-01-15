@@ -1,5 +1,7 @@
 package at.htl.leonding.game2048.viewmodel
 
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -22,8 +24,12 @@ class GameViewModel : ViewModel() {
 
         model.move(direction)
         _gameBoard.value = model.gameBoard;
-        this.gameState.value = model.gameState
         this.score.value = model.score
+
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            this.gameState.value = model.gameState
+        },500)
     }
 
     fun startGame() {

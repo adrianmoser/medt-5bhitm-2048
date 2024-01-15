@@ -74,7 +74,6 @@ fun GameBoard(viewModel: GameViewModel) {
                 Row {
                     listOfCells.forEach { cell ->
                         GameCell(number = cell)
-
                     }
                 }
 
