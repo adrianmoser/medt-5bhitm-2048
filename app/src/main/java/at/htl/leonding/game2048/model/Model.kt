@@ -13,6 +13,8 @@ class Model {
     val gameBoard: List<List<Int>>
         get() = this.gameCells.toList()
 
+    private var previousGameBoard: List<List<Int>> = emptyList()
+
     private val sizeOfTheRow = 4;
 
     private var _gameState = GameState.START
@@ -160,6 +162,9 @@ class Model {
 
     //region move
     fun move(direction: Direction) {
+        // Store the current game board state
+        previousGameBoard = gameBoard.toList()
+
         when (direction) {
             Direction.RIGHT -> moveRight()
             Direction.LEFT -> moveLeft()
@@ -180,7 +185,20 @@ class Model {
             return;
         }
 
-        replaceRandomField()
+        // Check if the game board has changed
+        if (gameBoard != previousGameBoard) {
+            if (isGameOver()) {
+                _gameState = GameState.LOST
+                return
+            }
+
+            if (hasWon()) {
+                _gameState = GameState.WON
+                return
+            }
+
+            replaceRandomField()
+        }
     }
 
     private fun moveRight(): List<List<Int>> {
