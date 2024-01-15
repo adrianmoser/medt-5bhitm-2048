@@ -14,7 +14,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -25,14 +24,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import at.htl.leonding.game2048.GameCell
 import at.htl.leonding.game2048.input.DragTouchInputHandler
-import at.htl.leonding.game2048.model.Direction
 import at.htl.leonding.game2048.ui.theme.GameBackground
 import at.htl.leonding.game2048.viewmodel.GameViewModel
 
 @Composable
 fun GameBoard(viewModel: GameViewModel) {
-    var direction by remember { mutableStateOf(Direction.NO_DIRECTION) }
-    var dragTouchInputHandler by remember { mutableStateOf(DragTouchInputHandler()) }
+    val dragTouchInputHandler by remember { mutableStateOf(DragTouchInputHandler()) }
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -44,12 +41,10 @@ fun GameBoard(viewModel: GameViewModel) {
                         change.consume()
                         val (x, y) = dragAmount
                         dragTouchInputHandler.addDragEvent(x, y)
-                        //direction = handleDragEvent(x, y)
                     },
                     onDragEnd = {
                         viewModel.handleSwipe(dragTouchInputHandler.calcDirection())
                         dragTouchInputHandler.reset()
-                        //viewModel.handleSwipe(direction)
                     })
             }
     ) {
