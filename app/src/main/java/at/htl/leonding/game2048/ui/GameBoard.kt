@@ -24,7 +24,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import at.htl.leonding.game2048.GameCell
-import at.htl.leonding.game2048.handleDragEvent
+import at.htl.leonding.game2048.input.DragTouchInputHandler
 import at.htl.leonding.game2048.model.Direction
 import at.htl.leonding.game2048.ui.theme.GameBackground
 import at.htl.leonding.game2048.viewmodel.GameViewModel
@@ -32,6 +32,7 @@ import at.htl.leonding.game2048.viewmodel.GameViewModel
 @Composable
 fun GameBoard(viewModel: GameViewModel) {
     var direction by remember { mutableStateOf(Direction.NO_DIRECTION) }
+    var dragTouchInputHandler by remember { mutableStateOf(DragTouchInputHandler()) }
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -42,13 +43,15 @@ fun GameBoard(viewModel: GameViewModel) {
                     onDrag = { change, dragAmount ->
                         change.consume()
                         val (x, y) = dragAmount
-                        direction = handleDragEvent(x, y)
+                        dragTouchInputHandler.addDragEvent(x, y)
+                        //direction = handleDragEvent(x, y)
                     },
                     onDragEnd = {
-                        viewModel.handleSwipe(direction)
+                        viewModel.handleSwipe(dragTouchInputHandler.calcDirection())
+                        dragTouchInputHandler.reset()
+                        //viewModel.handleSwipe(direction)
                     })
             }
-
     ) {
         Column(
             modifier = Modifier.fillMaxWidth(),
