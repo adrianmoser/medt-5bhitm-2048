@@ -183,10 +183,6 @@ class Model {
 
         // Check if the game board has changed
         if (gameBoard != previousGameBoard) {
-            if (isGameOver()) {
-                _gameState = GameState.LOST
-                return
-            }
 
             if (hasWon()) {
                 _gameState = GameState.WON
@@ -194,6 +190,12 @@ class Model {
             }
 
             replaceRandomField()
+
+            //check if the user has lost the game:
+            if (isGameOver()) {
+                _gameState = GameState.LOST
+                return
+            }
         }
     }
 
